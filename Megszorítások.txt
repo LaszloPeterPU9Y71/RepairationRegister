@@ -1,0 +1,47 @@
+Amikor a munkalap felvételére kerül sor akkor a következő mezőket kell kitölteni: 
+
+Table Devices {
+  id int [pk, increment]
+  customer_id int                  		nem lehet null, mert gazdája mindenképp van. 
+  name varchar(255)				nem lehet null, mert neve mindenképp kell lenni - Az viszont kérdés, hogy listából választós legyen-e, vagy mindig begépelős. Nekem a listából választós jobban tetszene, valamilyen keresővel, mert akkor az elgépelések és egyebek kiküszöböltek lennének. 
+  model_number varchar(255) 			lehet null, nem mindig látszik a gépen
+  serial_number varchar(255)			lehet null, nem mindig látszik a gépen
+  type_number varchar(255)			lehet null, nem mindig látszik a gépen
+  user_description_of_issue text		lehet null, nem mindig tudják megmondani, mi a baja a gépnek.
+  technician_description_of_issue text		lehet null, a kezdetben még nem tudjuk mit talál a szervizes
+  defect_type varchar(255)			lehet null, 
+  is_warranty boolean				nem lehet null, alapértelmezetten 0
+  is_warranty_ticket boolean			nem lehet null, alapértelmezetten 0
+  is_registered boolean				nem lehet null, alapértelmezetten 0
+  is_invoice boolean				nem lehet null, alapértelmezetten 0
+  documents_received boolean			nem lehet null, alapértelmezetten 0
+}
+
+
+Amikor céget veszünk föl az adatbázisba a következőket kell megadni: 
+
+
+Table Companies {
+  id int [pk, increment]
+  name varchar(255)				nem lehet null
+  postal_code varchar(255)			nem lehet null
+  city varchar(255)				nem lehet null
+  address varchar(255)				nem lehet null
+  tax_number varchar(255)			nem lehet null, szövegként egybeírva, megszorítás nélkül, mert ha belemegyünk, akkor először azt kellene beállítani, hogy melyik országban van a cég és annak megfelelő formátumot kellene megkövetelni. Ez lehet majd egy továbbfejlesztési lehetőség. 
+}
+
+A felhasználóknél a következőket kell megadni: 
+
+Table Users {  
+  id int [pk, increment]
+  name varchar(255)				nem lehet null
+  password varchar(255)				nem lehet null
+  title varchar(128)				nem lehet null
+  phone varchar(20)				nem lehet null, megadott formátumban kell megadni
+  email varchar(255)				nem lehet null, e-mail címes contraint lesz rajta. 
+  role enum('technician', 'customer')		nem lehet null
+}
+
+//A magánszemélyek lakcíme nem fontos információ a az értesítés szempontjából, mert azt vagy telefonon, vagy e-mailben küldjük ki. 
+
+
